@@ -1,0 +1,29 @@
+*{
+    font-family: Montserrat,'Times New Roman', Times, serif;
+}
+.flex{    display: flex; }
+.center{
+    justify-content: center; 
+    align-items: center;
+} 
+.around{
+    justify-content: space-around;
+}
+.mgFirstInside > *{
+    margin: 0.5% 1.7%;
+}
+.pad{
+    padding: 2%;
+}
+.wd95{    width: 95%;}
+.fcolumn{    flex-direction: column;}
+.info{
+    background-color: #b9463e;
+    color: white;    
+}
+section{
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.15);
+}
+.barraDeProgresso{
+    border:1px solid;    
+}
