@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
 </head>
 <body>
-    <main>
+    <main id="app">
         <section class="flex around mgFirstInside">
             <div>Jogador
                 <div class="barraDeProgresso">
-                    <span>abcd</span>
+                    <span :style="vidaJogadorProgresso"></span>
                 </div>
                 <div>%</div>
             </div>
@@ -34,7 +34,6 @@
             <div class="info wd95 flex center">lorem</div>
             <div class="info wd95 flex center">lorem</div>
             <div class="info wd95 flex center">lorem</div>
-            
         </section>
     </main>
     <script src="https://unpkg.com/vue"></script>

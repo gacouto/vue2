@@ -29,7 +29,7 @@
 		}
     Imprima também o índice de cada item. -->
   <h2>#03</h2>
-  <ul v-for="(valor,atributoNome) in livro" v-bind:key="atributos">
+  <ul v-for="(valor,atributoNome) in livro" v-bind:key="atributoNome">
     <li> {{atributoNome}} - {{valor}} </li>
   </ul>
   
