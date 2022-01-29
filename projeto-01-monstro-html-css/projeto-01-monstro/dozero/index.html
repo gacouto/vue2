@@ -15,18 +15,18 @@
                 <div class="barraDeProgresso">
                     <span :style="vidaJogadorProgresso"></span>
                 </div>
-                <div>%</div>
+                <div>{{vidaJogador}} %</div>
             </div>
             <div>Monstro
                 <div class="barraDeProgresso">
-                    <span>abcd</span>
+                    <span :style="vidaMonstroProgresso"></span>
                 </div>
-                <div>%</div>
+                <div>{{vidaMonstro}}%</div>
             </div>
         </section>
         <section class="flex center mgFirstInside pad">
-            <button class="botao primario">ataque</button>
-            <button class="botao secundario">ataque</button>
+            <button class="botao primario" @click="ataque">ataque</button>
+            <button class="botao secundario" @click="ataqueEspecial">ataque especial</button>
             <button class="botao terciario">ataque</button>
             <button class="botao desabilitado">ataque</button>
         </section>
