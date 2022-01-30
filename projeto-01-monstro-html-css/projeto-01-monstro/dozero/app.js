@@ -4,10 +4,12 @@ new Vue({
     data: {
         barra: '',
         vidaJogador: 100,
-        vidaMonstro: 100
+        vidaMonstro: 100,
+        isBatalhaIniciada:false,
+        logDeBatalha:[]
     },
     methods: {
-        calculaVida(valor, cor) {
+        calculaVidaEstilo(valor, cor) {
             let larguraVida = this.vidaJogador / 4
             let larguraVw = larguraVida + 'vw'
 
@@ -16,14 +18,18 @@ new Vue({
                 width: larguraVida + 'vw'
             }
         },
-        alteraVidaJogadorMonstro(vidaJogador,
-            vidaMonstro) {
-            this.vidaJogador += vidaJogador
-            this.vidaMonstro += vidaMonstro
-
+        iniciar(){
+            this.isBatalhaIniciada = true
+        },
+        alteraVidaJogadorMonstro(danoMonstro,danoJogador) {
+            this.vidaJogador += danoMonstro
+            this.logDeBatalha.unshift(`Monstro atingiu jogador com ${danoMonstro}`)
+            
+            this.vidaMonstro += danoJogador
+            this.logDeBatalha.unshift(`Jogador atingiu monstro com ${danoJogador}`)
         },
         ataque() {
-            
+            //todo ser aleatorio
             this.alteraVidaJogadorMonstro(-7, -5)
         },
         ataqueEspecial(){
@@ -33,17 +39,17 @@ new Vue({
             this.alteraVidaJogadorMonstro(5,-6)
         },
         desistir(){
-
+            this.vidaJogador = 100
+            this.vidaMonstro = 100
+            this.isBatalhaIniciada = false
         }
     },
     computed: {
         vidaJogadorProgresso() {
-            return this.calculaVida(this.vidaJogador, 'red')
+            return this.calculaVidaEstilo(this.vidaJogador, 'red')
         },
-        
-
         vidaMonstroProgresso() {
-            return this.calculaVida(this.vidaMonstro, 'green')
+            return this.calculaVidaEstilo(this.vidaMonstro, 'green')
         }
 
     },

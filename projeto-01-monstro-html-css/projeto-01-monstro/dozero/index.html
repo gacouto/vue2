@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>matad</title>
+    <title>proj1</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
 </head>
+
 <body>
     <main id="app">
         <section class="flex around mgFirstInside">
@@ -15,28 +17,35 @@
                 <div class="barraDeProgresso">
                     <span :style="vidaJogadorProgresso"></span>
                 </div>
-                <div>{{vidaJogador}} %</div>
+                <div class="flex center">{{vidaJogador}} %</div>
             </div>
             <div>Monstro
                 <div class="barraDeProgresso">
                     <span :style="vidaMonstroProgresso"></span>
                 </div>
-                <div>{{vidaMonstro}}%</div>
+                <div class="flex center">{{vidaMonstro}}%</div>
             </div>
         </section>
         <section class="flex center mgFirstInside pad">
-            <button class="botao primario" @click="ataque">ataque</button>
-            <button class="botao secundario" @click="ataqueEspecial">ataque especial</button>
-            <button class="botao terciario">ataque</button>
-            <button class="botao desabilitado">ataque</button>
+            <div v-if="!isBatalhaIniciada">
+                <button class="botao iniciar" @click="iniciar">iniciar jogo</button>
+            </div>
+            <div v-else>
+                <button class="botao primario" @click="ataque">ataque</button>
+                <button class="botao secundario" @click="ataqueEspecial">ataque especial</button>
+                <button class="botao terciario" @click="cura">cura</button>
+                <button class="botao desabilitado" @click="desistir">desistir</button>
+            </div>
         </section>
         <section class="flex center fcolumn mgFirstInside pad">
-            <div class="info wd95 flex center">lorem</div>
-            <div class="info wd95 flex center">lorem</div>
-            <div class="info wd95 flex center">lorem</div>
+            <div class=" wd95 flex center" v-for="(info,index) of logDeBatalha">
+                <span class=" info wd95 flex center" :class={fundoAzul:(index%2)!=0}>{{info}}</span>
+            </div>
+
         </section>
     </main>
     <script src="https://unpkg.com/vue"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
