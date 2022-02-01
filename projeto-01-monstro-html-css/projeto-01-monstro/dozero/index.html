@@ -17,7 +17,7 @@
                 <div class="barraDeProgresso">
                     <span :style="vidaJogadorProgresso"></span>
                 </div>
-                <div class="flex center">{{vidaJogador}} %</div>
+                <div class="flex center" >{{vidaJogador}} %</div>
             </div>
             <div>Monstro
                 <div class="barraDeProgresso">
@@ -26,7 +26,11 @@
                 <div class="flex center">{{vidaMonstro}}%</div>
             </div>
         </section>
-        <section class="flex center mgFirstInside pad">
+        <section class="flex center mgFirstInside pad"  v-if="mensagemFinal.msg">
+            <span v-text="mensagemFinal.msg" :style="mensagemFinal.estilo"></span>
+        </section>
+
+        <section class="flex center mgFirstInside pad" >
             <div v-if="!isBatalhaIniciada">
                 <button class="botao iniciar" @click="iniciar">iniciar jogo</button>
             </div>
@@ -37,7 +41,7 @@
                 <button class="botao desabilitado" @click="desistir">desistir</button>
             </div>
         </section>
-        <section class="flex center fcolumn mgFirstInside pad">
+        <section class="flex center fcolumn mgFirstInside pad" v-if="logDeBatalha.length>0">
             <div class=" wd95 flex center" v-for="(info,index) of logDeBatalha">
                 <span class=" info wd95 flex center" :class={fundoAzul:(index%2)!=0}>{{info}}</span>
             </div>

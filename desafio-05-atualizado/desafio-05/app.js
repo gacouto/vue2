@@ -1,4 +1,4 @@
-new Vue({
+const vm = new Vue({
 	el: '#desafio',
 	data: {
 		array: ['Pedro', 'Bia', 'Ana', 'Rebeca'],
@@ -15,5 +15,13 @@ new Vue({
 		deveMostrar:false,
 		arrayCoisas:['banana','tomate']
 		
-	}, 
+	},
+	methods:{
+		itera(){
+			for(coisas in this.arrayCoisas){
+				debugger
+				console.log(coisas)
+			}
+		}
+	} 
 });
