@@ -9,7 +9,7 @@
             </thead>
             <tbody>
                 <tr v-for="usuario in usuarios" :key="usuario.id"
-                @click="$emit('onUserSelected',usuario)">
+                @click="userSelected(usuario)">
                     <td>{{ usuario.id }}</td>
                     <td>{{ usuario.nome }}</td>
                 </tr>
@@ -19,8 +19,25 @@
 </template>
 
 <script>
-export default {
-    props: { usuarios: Array }
+import bus from '@/barramento'
+let usuarios = [
+                    { id: 1, nome: 'Ana', idade: 31 },
+                    { id: 2, nome: 'Carlos', idade: 22 },
+                    { id: 3, nome: 'Daniel', idade: 40 },
+                    { id: 4, nome: 'Ema', idade: 17 },
+                    { id: 5, nome: 'Lia', idade: 28 }
+                ]
+export default { 
+    data(){
+        return {
+            usuarios
+        }
+    },
+    methods:{
+        userSelected(user){
+            bus.$emit('onUserSelected',user)
+        }
+    }
 }
 </script>
 
@@ -29,7 +46,6 @@ export default {
         flex: 1;
         display: flex;
     }
-
     table {
         flex: 1;
         border-spacing: 0px;

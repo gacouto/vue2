@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<usuario-lista :usuarios="usuarios" @onUserSelected="userSelected" />
+		<usuario-lista :usuarios="usuarios"  />
 		<usuario-detalhe v-bind:selectedUser="sUser"/>
 	</div>
 </template>
@@ -8,19 +8,13 @@
 <script>
 import UsuarioLista from './components/UsuarioLista.vue'
 import UsuarioDetalhe from './components/UsuarioDetalhe.vue'
+import bus from '@/barramento'
 
 export default {
 	name: "app",
 	components: { UsuarioLista, UsuarioDetalhe },
     data() {
-        return {
-            usuarios: [
-                { id: 1, nome: 'Ana', idade: 31 },
-                { id: 2, nome: 'Carlos', idade: 22 },
-                { id: 3, nome: 'Daniel', idade: 40 },
-                { id: 4, nome: 'Ema', idade: 17 },
-                { id: 5, nome: 'Lia', idade: 28 }
-            ],
+        return { 
 			sUser:null
         }
     },
@@ -32,6 +26,9 @@ export default {
 				return this.sUser=user
 			this.sUser = null
 		}
+	},
+	created(){
+		bus.$on('onUserSelected',this.userSelected)
 	}
 }
 </script>
