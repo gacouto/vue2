@@ -1,14 +1,17 @@
 <template>
-    <div class="citacao" v-if="citacao">
-        <p>{{citacao.texto}}</p>
-        <small>{{citacao.fonte}}</small>
+    <div class="citacao" v-if="quote">
+        <p>{{quote.texto}}</p>
+        <small>{{quote.fonte}}</small>
     </div>
 </template>
 
 <script>
 export default {
     props:{
-        citacao:Object
+        quote:Object
+    },
+    created(){
+        console.log('criei')
     }
 }
 </script>

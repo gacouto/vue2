@@ -4,7 +4,7 @@
             <button @click="numero--">&lt;</button>
             <button @click="numero++">&gt;</button>
              
-        </span>
+        </span> 
         {{ numero }} {{ indice }}
     </div>
 </template>
@@ -37,8 +37,8 @@ export default {
             let result = this.numero % 3 
             let indice = Math.abs(result)
 
-            let citacao = this.citacoes[indice]
-            this.$emit('onIndiceMudou',citacao)
+            let quote = this.citacoes[indice]
+            this.$emit('onChangedIndex',quote)
             
             return indice
         }
@@ -51,5 +51,6 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        border: 1px solid red;
     }
 </style>

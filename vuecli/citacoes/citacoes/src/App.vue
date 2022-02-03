@@ -1,27 +1,38 @@
 <template>
   <div id="app">
-    <Citacoes @onIndiceMudou="mudarCitacaoSelecionada" />
-    <Citacao :citacao="citacaoSelecionada" />
+    <span :is="displayedComponent"></span>
+    <span class="clicavel" @click="changeDisplayedComponent">clk</span>
+    <Citacoes @onChangedIndex="mudarCitacaoSelecionada" />
+    <Citacao :quote="selectedQuote" />
     <Sobre />
+    <keep-alive>
+
+    <component :is="displayedComponent"  ></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import Citacao from "./components/Citacao.vue";
+import Citacao from "./components/Citacao";
 import Citacoes from "./components/Citacoes";
 import Sobre from "./components/Sobre";
 
 export default {
-  components: { Citacoes, Sobre, Citacao },
+  components: { Citacao, Citacoes, Sobre   },
   data() {
     return {
-      citacaoSelecionada: null,
+      selectedQuote: null,
+      displayedComponent: "",
     };
   },
   methods: {
-    mudarCitacaoSelecionada(citacao){
-		this.citacaoSelecionada=citacao
-	}
+    mudarCitacaoSelecionada(citacao) { 
+      this.selectedQuote = citacao;
+    },
+    changeDisplayedComponent() { 
+      this.displayedComponent =
+        this.displayedComponent != "Sobre" ? "Sobre" : "Citacao";
+    },
   },
 };
 </script>

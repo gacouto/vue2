@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
     div {
+        border:21px solid red;
         display: flex;
         flex-direction: column;
         justify-content: center;
