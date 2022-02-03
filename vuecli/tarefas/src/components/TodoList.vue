@@ -13,6 +13,7 @@ export default {
     },
     mounted(){
         this.$on("onItemSelected", function(item) {
+            console.log('oi recebi')
 		debugger;
 		 //Vue.set(this.selectedList, item, "")
 		});

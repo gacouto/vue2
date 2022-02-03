@@ -8,7 +8,6 @@
 </template>
 
 <script>
-
 import Vue from "vue";
 
 import TodoInput from "./components/TodoInput.vue";
@@ -34,17 +33,17 @@ export default {
     },
     progresso() {
       let numberOfTodos = Object.keys(this.allowedList).length;
-	  let numberOfDoneTodos = Object.keys(this.selectedList).length;
-	  let progress = 100 *  numberOfDoneTodos / numberOfTodos
-      
-	  return progress
+      let numberOfDoneTodos = Object.keys(this.selectedList).length;
+      let progress = (100 * numberOfDoneTodos) / numberOfTodos;
+
+      return progress;
     },
   },
   mounted() {
-    this.$on("onItemSelected", function(item) {
-		debugger;
-		 Vue.set(this.selectedList, item, "")
-		});
+    this.$on("onItemSelected", function (item) {
+      debugger;
+      Vue.set(this.selectedList, item, "");
+    });
   },
   beforeDestroy() {
     this.$off("onItemSelected");

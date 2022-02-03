@@ -18,7 +18,7 @@ import Citacoes from "./components/Citacoes";
 import Sobre from "./components/Sobre";
 
 export default {
-  components: { Citacao, Citacoes, Sobre   },
+  components: { Citacao, Citacoes, Sobre },
   data() {
     return {
       selectedQuote: null,
