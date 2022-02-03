@@ -14,18 +14,20 @@ export default {
 </script>
 <style scoped>
 div {
+  margin: 1vw;
   width: 100px;
-  border: 1px solid rgba(0, 0, 0, 0.5); 
+  border: 1px solid rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   position: relative;
 }
 section {
-  background-color: green; 
+  background-color: green;
   position: absolute;
-  left: 0;
+  left: 0;  
+  box-shadow: 0px 3px 2vw green;
 }
-span { 
+span {
   display: flex;
   justify-content: center;
 }

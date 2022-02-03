@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Tarefas</h1>
-    <Progress-bar :progress="progresso" />
+    <Progress-bar :progress="progresso" class="glow-shadow" />
 
     <TodoInput @onItemNameAdded="addItemName" />
 
@@ -22,7 +22,7 @@ export default {
   components: { TodoInput, TodoList, ProgressBar },
   data() {
     return {
-      allowedList: [{name:'shopping',done:false}]
+      allowedList: []
     };
   },
   methods: {
@@ -96,5 +96,13 @@ body {
   margin-bottom: 5px;
   font-weight: 300;
   font-size: 3rem;
+}
+.rounded-border{
+  
+    border-radius: 0 1vw;
+}
+.glow-shadow{
+  
+  box-shadow: 0px 3px 2vw green;
 }
 </style>

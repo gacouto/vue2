@@ -3,7 +3,7 @@
     <button @click="$emit('onItemDelete', item)">X</button>
     <span :class="selectedStyle" class="card"
      @click="$emit('onItemSelected', item)"
-      >{{ item }}
+      >{{ item.name }}
     </span>
   </span>
 </template>
@@ -23,14 +23,17 @@ export default {
 <style scoped>
 .card {
   margin: 0.7vw;
-  padding: 0.7vw;
+  padding: 1.7vw 0.7vw;
   border-radius: 0.1vw 0.5vw;
+  box-shadow: 0px 3px 2vw red;
 }
 .unselected {
   background: red;
 }
 .selected {
   background: green;
+  text-decoration: line-through;
+  box-shadow: 0px 3px 2vw green;
 }
 button {
   border: none;
