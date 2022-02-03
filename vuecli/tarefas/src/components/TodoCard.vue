@@ -1,34 +1,51 @@
 <template>
+<span>
+    <button @click="$emit('onItemDelete',item)">X</button>
     <span :class="selectedStyle" class="card" 
-    @click="$emit('onItemSelected',item)"
-     >{{item}} </span>
+    @click="selectThisItem" >{{item}} 
+    </span>
+</span>
 </template>
 <script>
 export default {
     props:{
-        isSelected:Boolean,
-        item:String,
-        containedValue:String
+        item:String
+    },
+    data(){
+        return {
+            isSelected:false,
+        }
+    },
+    methods:{
+        selectThisItem(item){
+            this.isSelected=!this.isSelected
+            this.$emit('onItemSelected',item)            
+        } 
     },
     computed:{
         selectedStyle(){
-            return this.isSelected ? 'selected':'unselected'
+            return this.isSelected ? 'selected' : 'unselected'
         }
-    },
-    mounted(){
-        
-        console.log(this.item)
-    }
+    } 
 }
 </script>
 <style scoped>
  .card{
-        margin:0.4vw;
+        margin:0.7vw;
+        padding: 0.7vw;
+        border-radius: 0.1vw 0.5vw;
  }
  .unselected{
      background: red;
  }
  .selected{
-     background: red;
+     background: green;
+ }
+ button{
+     border:none;
+     color:white;
+     background: black;
+     font-size: 1vw;
+     padding: 0.5vw;
  }
 </style>

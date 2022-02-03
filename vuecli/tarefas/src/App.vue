@@ -1,52 +1,105 @@
 <template>
   <div id="app">
     <h1>Tarefas</h1>
+    <Progress-bar :progress="progresso" />
+
     <TodoInput @onItemNameAdded="addItemName" />
-    <TodoList :listTodo="allowedList" />
-    {{ progresso }}
+
+    <TodoList :listTodo="allowedList" 
+      @onRemoveItem="deleteItem"
+      @onProgressStateChanged="selectItem" />
+    
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-
+import ProgressBar from "./components/ProgressBar.vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
+
+const LS_LISTNAME = "allowedList";
+const LS_SELECTED_LISTNAME = "selectedList";
 export default {
-  components: { TodoInput, TodoList },
+  components: { TodoInput, TodoList, ProgressBar },
   data() {
     return {
-      allowedList: { john: "", joao: "" },
+      allowedList: [],
       lastIndex: 1,
-      selectedList: {},
+      selectedList: [],
     };
   },
   methods: {
+    addIfNotExists(list, itemName, functionCallback) {
+      let foundIndex = list.indexOf(`${itemName}`);
+      let notExistOnList = foundIndex === -1;
+      if (notExistOnList) {
+        list.push(itemName);
+      } else {
+        functionCallback(list, itemName, foundIndex);
+      }
+    },
+    removeIfAlreadyExists(list, item, foundIndex) {
+      list.splice(foundIndex, 1);
+    },
     addItemName(itemName) {
-      Vue.set(this.allowedList, `${itemName}`, "");
-      //			this.allowedList[`${itemName}`] = ''
+      this.addIfNotExists(this.allowedList, itemName,()=>{});
+    },
+    selectItem(itemName) {
+      this.addIfNotExists(
+        this.selectedList,itemName,
+        this.removeIfAlreadyExists
+      );
+    },
+    deleteItem({key,val}){
+      this.allowedList.splice(key,1)
+      if(this.selectedList.length>0){
+        debugger
+        let indexItemSelected = this.selectedList.findIndex(indx=>indx==val)
+        this.selectedList.splice(indexItemSelected,1)        
+      }
+    },
+    oldAddItemName(itemName) {
+      let isAlreadyOnList = false;
+      for (let ii = 0; ii < this.allowedList.length; ii++) {
+        let todoItem = this.allowedList[ii];
+        if (todoItem === itemName) {
+          isAlreadyOnList = true;
+          break;
+        }
+      }
+      if (!isAlreadyOnList) {
+        this.allowedList.push(itemName);
+      }
     },
   },
   computed: {
-    allowedList2() {
-      return { john: 0, joao: 1 };
-    },
     progresso() {
-      let numberOfTodos = Object.keys(this.allowedList).length;
-      let numberOfDoneTodos = Object.keys(this.selectedList).length;
+      let numberOfTodos = this.allowedList.length;
+      let numberOfDoneTodos = this.selectedList.length;
       let progress = (100 * numberOfDoneTodos) / numberOfTodos;
-
+      //debugger
+      if(progress>0){ progress = Math.round(progress)}
+      else{ progress=0}
       return progress;
     },
   },
-  mounted() {
-    this.$on("onItemSelected", function (item) {
-      debugger;
-      Vue.set(this.selectedList, item, "");
-    });
+  watch: {
+    allowedList() {
+      localStorage.setItem(LS_LISTNAME, JSON.stringify(this.allowedList));
+    },
+    selectedList() {
+      let stringList =
+        JSON.stringify(this.selectedList) 
+
+      localStorage.setItem(
+        LS_SELECTED_LISTNAME,stringList
+      );
+    },
   },
-  beforeDestroy() {
-    this.$off("onItemSelected");
+  mounted() {
+    let allTodos = JSON.parse(localStorage.getItem(LS_LISTNAME));
+    let doneTodos = JSON.parse(localStorage.getItem(LS_SELECTED_LISTNAME));
+    
   },
 };
 </script>
