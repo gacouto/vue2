@@ -1,11 +1,12 @@
 <template>
   <span>
     <TodoCard
-      v-for="(val, key) of listTodo"
+      v-for="(val, key) in listTodo"
       :key="key"
       :item="val"
+      :isSelected="val.done"
       @onItemDelete="$emit('onRemoveItem', {key,val})"
-      @onItemSelected="$emit('onProgressStateChanged', val)"
+      @onItemSelected="$emit('onDoneTodo', val)"
     />
   </span>
 </template>

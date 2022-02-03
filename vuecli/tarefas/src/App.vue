@@ -6,8 +6,8 @@
     <TodoInput @onItemNameAdded="addItemName" />
 
     <TodoList :listTodo="allowedList" 
-      @onRemoveItem="deleteItem"
-      @onProgressStateChanged="selectItem" />
+      @onRemoveItem="key=>allowedList.splice(key,1)"
+      @onDoneTodo="markTodoAsDone" />
     
   </div>
 </template>
@@ -18,87 +18,59 @@ import TodoInput from "./components/TodoInput.vue";
 import TodoList from "./components/TodoList.vue";
 
 const LS_LISTNAME = "allowedList";
-const LS_SELECTED_LISTNAME = "selectedList";
 export default {
   components: { TodoInput, TodoList, ProgressBar },
   data() {
     return {
-      allowedList: [],
-      lastIndex: 1,
-      selectedList: [],
+      allowedList: [{name:'shopping',done:false}]
     };
   },
   methods: {
-    addIfNotExists(list, itemName, functionCallback) {
-      let foundIndex = list.indexOf(`${itemName}`);
+    addIfNotExists(list, itemName) {
+      let foundIndex = list.findIndex(obj=>obj.name==`${itemName}`);
       let notExistOnList = foundIndex === -1;
       if (notExistOnList) {
-        list.push(itemName);
-      } else {
-        functionCallback(list, itemName, foundIndex);
-      }
+        let preparedItemObj = { name:itemName,done:false}
+        list.push(preparedItemObj);
+      }  
     },
     removeIfAlreadyExists(list, item, foundIndex) {
       list.splice(foundIndex, 1);
     },
     addItemName(itemName) {
-      this.addIfNotExists(this.allowedList, itemName,()=>{});
+      this.addIfNotExists(this.allowedList, itemName);
     },
-    selectItem(itemName) {
-      this.addIfNotExists(
-        this.selectedList,itemName,
-        this.removeIfAlreadyExists
-      );
-    },
-    deleteItem({key,val}){
-      this.allowedList.splice(key,1)
-      if(this.selectedList.length>0){
-        debugger
-        let indexItemSelected = this.selectedList.findIndex(indx=>indx==val)
-        this.selectedList.splice(indexItemSelected,1)        
-      }
-    },
-    oldAddItemName(itemName) {
-      let isAlreadyOnList = false;
-      for (let ii = 0; ii < this.allowedList.length; ii++) {
-        let todoItem = this.allowedList[ii];
-        if (todoItem === itemName) {
-          isAlreadyOnList = true;
-          break;
-        }
-      }
-      if (!isAlreadyOnList) {
-        this.allowedList.push(itemName);
-      }
-    },
+    markTodoAsDone(itemObject){
+      itemObject.done=!itemObject.done
+      localStorage.setItem(LS_LISTNAME, JSON.stringify(this.allowedList));
+    }
   },
   computed: {
     progresso() {
       let numberOfTodos = this.allowedList.length;
-      let numberOfDoneTodos = this.selectedList.length;
-      let progress = (100 * numberOfDoneTodos) / numberOfTodos;
-      //debugger
+      let numberOfDoneTodos = 0
+      
+      for(const todo of this.allowedList){
+        if(todo.done){
+          numberOfDoneTodos++
+        }
+      }
+      let progress = (100 * numberOfDoneTodos) / numberOfTodos; 
       if(progress>0){ progress = Math.round(progress)}
       else{ progress=0}
+
       return progress;
     },
   },
   watch: {
     allowedList() {
       localStorage.setItem(LS_LISTNAME, JSON.stringify(this.allowedList));
-    },
-    selectedList() {
-      let stringList =
-        JSON.stringify(this.selectedList) 
-
-      localStorage.setItem(
-        LS_SELECTED_LISTNAME,stringList
-      );
-    },
+      
+    }
   },
   mounted() {
     let allTodos = JSON.parse(localStorage.getItem(LS_LISTNAME));
-    let doneTodos = JSON.parse(localStorage.getItem(LS_SELECTED_LISTNAME));
+    this.allowedList = allTodos
     
   },
 };
