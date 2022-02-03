@@ -12,7 +12,7 @@
 <script>
 export default {
     props:{
-        selectedUser:Object
+        selectedUser : Object
     },
     data() {
         return {
