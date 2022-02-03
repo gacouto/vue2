@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<usuario-lista :usuarios="usuarios"  />
+		<usuario-lista :usuarios="usuarios" @onUserSelected="userSelected" />
 		<usuario-detalhe v-bind:selectedUser="sUser"/>
 	</div>
 </template>
@@ -34,7 +34,10 @@ export default {
 		}
 	},
 	mounted(){
-		this.$on('onUserSelected',this.userSelected)
+		this.$on('onUserSelected',function(selected){
+			debugger
+			this.userSelected(user)
+		})
 	}
 }
 </script>
