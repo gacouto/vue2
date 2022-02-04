@@ -27,7 +27,8 @@ export default {
   },
   methods: {
     addIfNotExists(list, itemName) {
-      let foundIndex = list.findIndex(obj=>obj.name==`${itemName}`);
+      
+      let foundIndex = list ? list.findIndex(obj=>obj.name==`${itemName}`) : -1;
       let notExistOnList = foundIndex === -1;
       if (notExistOnList) {
         let preparedItemObj = { name:itemName,done:false}
@@ -46,10 +47,11 @@ export default {
     }
   },
   computed: {
-    progresso() {
-      let numberOfTodos = this.allowedList.length;
-      let numberOfDoneTodos = 0
-      
+    progresso() {      
+      let numberOfTodos = this.allowedList? this.allowedList.length : 0;      
+      let numberOfDoneTodos = 0      
+      if(numberOfTodos===0) return 0
+
       for(const todo of this.allowedList){
         if(todo.done){
           numberOfDoneTodos++
@@ -70,6 +72,9 @@ export default {
   },
   mounted() {
     let allTodos = JSON.parse(localStorage.getItem(LS_LISTNAME));
+    
+    if(allTodos==null) allTodos = []
+
     this.allowedList = allTodos
     
   },
