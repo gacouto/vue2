@@ -1,8 +1,7 @@
 <template>
-  <div class="alturaBarra">
-    <section class="alturaBarra" :style="{ width: `${progress}%` }">
-      <span>{{ progress }}%</span>
-    </section>
+  <div class="outerbar">
+    <section class="fillbar" :style="{ width: `${progress}%` }"></section>
+    <span class="percentage">{{ progress }}%</span>
   </div>
 </template>
 <script>
@@ -12,26 +11,27 @@ export default {
   },
 };
 </script>
+
 <style scoped>
-div {
+.outerbar {
   margin: 1vw;
-  width: 100px;
+  width: 90%;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  height: calc(5% - 1rem);
+
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
 }
-section {
+.fillbar {
   background-color: green;
-  position: absolute;
-  left: 0;  
+  height: 100%;
   box-shadow: 0px 3px 2vw green;
+  z-index: 0;
 }
-span {
-  display: flex;
-  justify-content: center;
-}
-.alturaBarra {
-  height: 4vw;
+.percentage {
+  position: absolute;
+  right: calc(50% - 1.6rem);
+  z-index: 12;
 }
 </style>

@@ -103,11 +103,9 @@ body {
   font-size: 3rem;
 }
 .rounded-border{
-  
-    border-radius: 0 1vw;
+  border-radius: 0 12px;
 }
-.glow-shadow{
-  
+.glow-shadow{  
   box-shadow: 0px 3px 2vw green;
 }
 </style>

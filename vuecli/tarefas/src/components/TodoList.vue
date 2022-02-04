@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <div>
     <TodoCard
       v-for="(val, key) in listTodo"
       :key="key"
@@ -8,7 +8,7 @@
       @onItemDelete="$emit('onRemoveItem', {key,val})"
       @onItemSelected="$emit('onDoneTodo', val)"
     />
-  </span>
+  </div>
 </template>
 <script>
 import TodoCard from "./TodoCard.vue";
@@ -20,7 +20,8 @@ export default {
 };
 </script>
 <style scoped>
-span {
-  margin: 2.7vw 0;
-}
+div{
+    display: grid; 
+    grid-template-rows:repeat(auto-fit,50px);
+} 
 </style>
