@@ -5,10 +5,8 @@
     <Citacoes @onChangedIndex="mudarCitacaoSelecionada" />
     <Citacao :quote="selectedQuote" />
     <Sobre />
-    <keep-alive>
-
-    <component :is="displayedComponent"  ></component>
-    </keep-alive>
+    <component :is="displayedComponent" :quote="selectedQuote" ></component>
+    
   </div>
 </template>
 

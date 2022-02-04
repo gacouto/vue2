@@ -6,7 +6,7 @@
       <button class="azul" @click="selectedComponent='Azul'">Carregar Componente Azul</button>
     </span>
     <component :is="selectedComponent"> 
-		<strong>{{selectedComponent}}</strong>
+		  <strong>{{selectedComponent}}</strong>
 	</component>
   </div>
 </template>

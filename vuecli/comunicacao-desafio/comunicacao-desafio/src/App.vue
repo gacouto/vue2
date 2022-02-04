@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<usuario-lista :usuarios="usuarios" @onUserSelected="userSelected" />
+		<usuario-lista :usuarios="usuarios"  />
 		<usuario-detalhe v-bind:selectedUser="sUser"/>
 	</div>
 </template>
