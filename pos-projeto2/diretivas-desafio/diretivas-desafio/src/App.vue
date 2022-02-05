@@ -20,8 +20,8 @@ export default {
 				  let yPercent = (windowevent.y / window.innerHeight).toFixed(2);
 				  
 				  console.log(`${xPercent} x ${yPercent}`); 
-				  console.log(`${el.style.top}`);
-				  
+				  console.log(`${el.style.position}`);
+
 				  el.style.position = "fixed";
 				  el.style.top = `${(yPercent*100)-5}%`;
 				  el.style.left = `${(xPercent*100)}%`;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gridcontainer">
     <TodoCard
       v-for="(val, key) in listTodo"
       :key="key"
@@ -20,8 +20,9 @@ export default {
 };
 </script>
 <style scoped>
-div{
+.gridcontainer{
+    min-width: 320px;
     display: grid; 
-    grid-template-rows:repeat(auto-fit,50px);
+    grid-template-columns:repeat(auto-fill,minmax(120px,4fr));
 } 
 </style>

@@ -4,7 +4,7 @@
         <small>{{quote.fonte}}</small>
     </div>
 </template>
-
+ 
 <script>
 export default {
     props:{

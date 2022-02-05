@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <span :is="displayedComponent"></span>
-    <span class="clicavel" @click="changeDisplayedComponent">clk</span>
+    <span class="clicavel" @click="changeDisplayedComponent">Mudar</span>
     <Citacoes @onChangedIndex="mudarCitacaoSelecionada" />
     <Citacao :quote="selectedQuote" />
     <Sobre />

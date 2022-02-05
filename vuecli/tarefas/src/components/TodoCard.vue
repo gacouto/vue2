@@ -27,6 +27,7 @@ export default {
   justify-content: flex-end;
   word-break: break-all;
   max-width: 100px;
+  max-height: 30px;
   flex: 0 1;
   border-radius: 0.1vw 0.5vw;
   box-shadow: 0px 3px 2vw red;
