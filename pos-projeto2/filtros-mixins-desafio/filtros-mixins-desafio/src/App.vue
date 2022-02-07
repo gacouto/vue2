@@ -11,7 +11,7 @@
 		<p>{{'ir a feira' | sizeOfWords }}</p>
 		<!-- Exercício 3 -->
 		<!-- Implementar os exercicios 1 e 2 com propriedade computada -->
-
+		<p>'muito espaco aqui'</p>
 		<p>{{noSpacesComputed('muito espaco aqui') }}</p>
 		<p>{{noSpacesComputedM('muito espaco aqui') }}</p>
 

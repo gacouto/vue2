@@ -4,7 +4,7 @@
     <hr />
     <!-- Exercício -->
     <!-- Escreva uma diretiva que funcione com o v-on (escute eventos) -->
-    <button v-event-changer:followyou>change</button>
+    <button v-event-changer:followyou >change</button>
   </div>
 </template>
 
@@ -14,27 +14,32 @@ export default {
     "event-changer": {
       bind(el, binding, vnode) {
         if (binding.arg === "followyou") {
+          let isButtonAttached = el.dataset.active
+          if(isButtonAttached===undefined){
+            isButtonAttached = false
+          }
           //debugger
-		  let moveElement = function (windowevent){			  
-				  let xPercent = (windowevent.x / window.innerWidth).toFixed(2);
-				  let yPercent = (windowevent.y / window.innerHeight).toFixed(2);
-				  
-				  console.log(`${xPercent} x ${yPercent}`); 
-				  console.log(`${el.style.position}`);
+          let moveElement = function (windowevent) {
+            let xPercent = (windowevent.x / window.innerWidth).toFixed(2);
+            let yPercent = (windowevent.y / window.innerHeight).toFixed(2);
 
-				  el.style.position = "fixed";
-				  el.style.top = `${(yPercent*100)-5}%`;
-				  el.style.left = `${(xPercent*100)}%`;
-			  }
-		  
+            console.log(`${xPercent} x ${yPercent}`);
+            console.log(`${el.style.position}`);
+
+            el.style.position = "fixed";
+            el.style.top = `${yPercent * 100 - 5}%`;
+            el.style.left = `${xPercent * 100 - 5}%`;
+          };
+          
           el.addEventListener("click", function (event) {
-			  
-			  if(el.style.position === "fixed"){
-				  el.style.position === "static"
-				  window.removeEventListener('mousemove',moveElement)
-			  }else{				  
-				  window.addEventListener('mousemove',moveElement)
-			  }
+            
+            if (isButtonAttached) {
+              isButtonAttached = false
+              window.removeEventListener("mousemove", moveElement);
+            } else {
+              isButtonAttached=true
+              window.addEventListener("mousemove", moveElement);
+            }
           });
         }
       },

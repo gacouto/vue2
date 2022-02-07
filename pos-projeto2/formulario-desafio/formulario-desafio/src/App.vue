@@ -23,20 +23,53 @@
         </Rotulo>
 
         <Rotulo :nome="'senha'">
-          <input type="password" name="passwor" v-model="user.password" />
+          <input type="password" name="passwor" v-model.lazy="user.password" />
         </Rotulo>
-        <input
-          type="radio"
-          name="storeData"
-          :value="true"
-          v-model="user.shouldStore"
-        />Sim
-        <input
-          type="radio"
-          name="storeData"
-          :value="false"
-          v-model="user.shouldStore"
-        />Não
+        <Rotulo :nome="'escolha seu anime'">
+          <select v-model="user.animeFavorito">
+            <option v-for="anime of user.animes" :key="anime" :value="anime">
+              {{ anime }}
+            </option>
+          </select>
+        </Rotulo>
+        <span>
+           <input type="radio"
+            value="textaos"   
+            v-model="user.comidaFavorita"/>comidas
+          <input type="radio"
+            value="textao"   
+            v-model="user.comidaFavorita"/>comidas
+        </span>
+
+        <!-- <Rotulo :nome="'nada'">
+          <div>
+            <div v-for="(comida,indx) of comidas" :key="indx">
+              <input type="checkbox" 
+              v-model="user.comidaFavorita"
+               :value="comida"  />
+              {{ comida }}
+            </div>
+          </div>
+        </Rotulo> -->
+
+        <Rotulo :nome="'armazenar?'">
+          <div>
+            <input
+              type="radio"
+              name="storeData"
+              :value="true"
+              v-model="user.shouldStore"
+            />Sim
+            <input
+              type="radio"
+              name="storeData"
+              :value="false"
+              v-model="user.shouldStore"
+            />Não
+          </div>
+        </Rotulo>
+
+        <ToggleBtn v-model="user.shouldStore" />
         <!-- Exercicio 03 -->
         <!-- Crie um componente personalizado NomeCompleto -->
         <!-- Esse componente deve receber Nome e Sobrenome -->
@@ -54,7 +87,10 @@
           Email:<span>{{ user.email }}</span>
         </div>
         <Rotulo :nome="'Armazenar dados'">
-          {{user.shouldStore}}
+          {{ user.shouldStore }}
+        </Rotulo>
+        <Rotulo :name="'anime favorito'">
+          {{ user.animeFavorito }}
         </Rotulo>
       </div>
     </div>
@@ -64,13 +100,15 @@
 <script>
 import NomeCompleto from "./components/NomeCompleto.vue";
 import Rotulo from "./components/Rotulo.vue";
+import ToggleBtn from "./components/ToggleBtn.vue";
 
 export default {
   name: "app",
-  components: { Rotulo, NomeCompleto },
+  components: { Rotulo, NomeCompleto, ToggleBtn },
   data() {
     return {
       isSended: false,
+      comidas: ["pizza", "hamburguer", ""],
       fullname: {
         name: "",
         middlename: "",
@@ -79,6 +117,15 @@ export default {
         email: "",
         password: "",
         shouldStore: false,
+        animeFavorito: "",
+        comidaFavorita: '',
+        animes: [
+          "shingeki no miojin",
+          "kimetsu",
+          "mushoku tensei",
+          "black clover",
+          "naruto",
+        ],
       },
     };
   },
