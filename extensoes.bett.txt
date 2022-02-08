@@ -38,6 +38,7 @@ code --install-extension natqe.reload
 code --install-extension NicholasHsiang.vscode-vue2-snippets
 code --install-extension octref.vetur
 code --install-extension oderwat.indent-rainbow
+x
 code --install-extension peakchen90.vue-beautify
 code --install-extension pranaygp.vscode-css-peek
 code --install-extension ritwickdey.live-sass

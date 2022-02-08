@@ -31,8 +31,10 @@ export default {
 		}
 	},
 	computed:{
+		//vTotal
 		noSpacesComputed(){
-			return val => val.replaceAll(' ',',')
+			
+			return val => val.replaceAll(' ',',') //*this.vTotal
 		}
 	}
 }

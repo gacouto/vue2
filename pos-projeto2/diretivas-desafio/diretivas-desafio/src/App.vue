@@ -4,7 +4,7 @@
     <hr />
     <!-- Exercício -->
     <!-- Escreva uma diretiva que funcione com o v-on (escute eventos) -->
-    <button v-event-changer:followyou >change</button>
+    <button v-event-changer:followyou>change</button>
   </div>
 </template>
 
@@ -12,33 +12,36 @@
 export default {
   directives: {
     "event-changer": {
-      bind(el, binding, vnode) {
+      bind(el, binding) {
         if (binding.arg === "followyou") {
-          let isButtonAttached = el.dataset.active
-          if(isButtonAttached===undefined){
-            isButtonAttached = false
+          let isButtonAttached = el.dataset.active;
+          if (isButtonAttached === undefined) {
+            isButtonAttached = false;
           }
           //debugger
           let moveElement = function (windowevent) {
             let xPercent = (windowevent.x / window.innerWidth).toFixed(2);
             let yPercent = (windowevent.y / window.innerHeight).toFixed(2);
 
-            console.log(`${xPercent} x ${yPercent}`);
-            console.log(`${el.style.position}`);
 
-            el.style.position = "fixed";
-            el.style.top = `${yPercent * 100 - 5}%`;
-            el.style.left = `${xPercent * 100 - 5}%`;
+
+            const { style } = el;
+            console.log(`position is ${style.position}\n
+              x ${xPercent}, y ${yPercent} `)
+            //eh como se fosse let position = new String()
+            style.position = "fixed";
+            style.top = `${yPercent * 100 - 5}%`;
+            style.left = `${xPercent * 100 - 5}%`;
           };
-          
-          el.addEventListener("click", function (event) {
-            
+
+          el.addEventListener("click", function () {
             if (isButtonAttached) {
-              isButtonAttached = false
+              isButtonAttached = false;
               window.removeEventListener("mousemove", moveElement);
             } else {
-              isButtonAttached=true
+              isButtonAttached = true;
               window.addEventListener("mousemove", moveElement);
+              window.addEventListener("touchmove", moveElement);
             }
           });
         }
