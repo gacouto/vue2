@@ -50,6 +50,9 @@ ul.answers {
 
   display: flex;
 }
+.answers li:hover,.answers li:active{
+    background-color: wheat;
+}
 
 .answers .number {
   padding: 10px;
