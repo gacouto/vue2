@@ -1,43 +1,55 @@
-function clonaObjetoThiz(newname){    
-        return {
-            ...this,
-            nome: newname
-        }     
-}
-const pp1 = {
-    nome: 'feio',
+const customVehicle =  { nome:'honda' }
+const person = {
+    nome: 'funcionario',
     meses: 3,
-    clonaObjetoThiz
+    salario:5, 
+    createVehicle:salaryCreateVehicle
 }
-let patinhos = [
-    pp1,
-    { ...pp1.clonaObjetoThiz('bonito') },
-    { ...pp1.clonaObjetoThiz('arrumado') },
-    { ...pp1.clonaObjetoThiz('arrumado') }
-]
-let oldArr = []
-const reduzASomaDeNomes = function (acumulator, actualVal,
-    actualIndx, arrayUpdated) {
-    let tudo = {...arguments}
-    let namesSum = ''
-    let isEndOfIteration = actualIndx+1===arrayUpdated.length
-    if(isEndOfIteration){
 
-    }
-    if (actualVal) {
-        actualVal.nome += `-${actualIndx}`
+function shouldBeCar(salario){
+    return salario > 16
+} 
+function salaryCreateVehicle(){     
+        this.salario+= 5
+        let clone = {...this,     }
 
-        if (actualIndx === 1) {
-            namesSum = acumulator.nome + actualVal.nome
-        } else {
-            namesSum = acumulator + actualVal.nome
+        let newvehicle = { ...customVehicle}
+        if(shouldBeCar(this.salario)){
+            newvehicle.nome= 'ford'
+            clone['carro'] = newvehicle
+        }else{         
+            clone['moto'] = newvehicle
         }
+        return clone
+}
 
-        return namesSum
+let patinhos = [
+    { ...person.createVehicle() },
+    { ...person.createVehicle() },
+    { ...person.createVehicle() },
+    { ...person.createVehicle() } ] 
+const removeVehicleBrand = function(myPerson){
+    let vehicleName = 'moto'
+    if(shouldBeCar(myPerson.salario)){
+        vehicleName = 'carro'
     }
 
+    let {[vehicleName]:personalTransport } = myPerson
+    personalTransport.nome = ''
 }
-let todosNomes = patinhos.reduce(reduzASomaDeNomes)
+const becomeRich = function (acumulator, myPerson,
+    actualIndx, arrayUpdated) {
+    let allArgTest = {...arguments}
 
-const d=0
+    let myMoney = acumulator+myPerson.salario
+    removeVehicleBrand(myPerson)
+
+    myPerson.salario=0
+    return myMoney
+
+}
+let myNewFortune = 0 
+myNewFortune = patinhos.reduce(becomeRich,myNewFortune)
+
+const d = 0
 let icy = 0

@@ -2,3 +2,4 @@ anotacoes.txt
 aula 175 emit('input') @input
 aula 213 parei
 curso css voltar a 38
+animaçoes exercicio bug
