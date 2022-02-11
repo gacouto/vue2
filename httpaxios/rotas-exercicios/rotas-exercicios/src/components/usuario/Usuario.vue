@@ -1,10 +1,18 @@
 <template>
   <div>
     <h1>componente usuario</h1>
+
     <hr />
-    <router-view name="anotacoes"></router-view>
     <hr />
-    <router-view></router-view>
+
+    <transition name="flipflop"
+      appear
+      mode="out-in"
+    >
+      <router-view></router-view>
+    </transition>
+    <router-view name="menu"></router-view>
+
     <button sucesso @click="goToStart">back</button>
   </div>
 </template>

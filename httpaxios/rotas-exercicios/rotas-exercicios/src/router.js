@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import MyCustomRoutes from './mycustomroutes'
 
 import Inicio from '@/components/Inicio'
+import Menu from '@/components/template/Menu'
 
 import Usuario from '@/components/usuario/Usuario'
 import UsuarioLista from '@/components/usuario/UsuarioLista'
@@ -26,7 +27,7 @@ export default new VueRouter({
         anotacoes:Inicio,
     },
     children:[
-        {path:'', component:UsuarioLista},
+        {path:'', components:{default:UsuarioLista,menu:Menu}},
         {path:':iduser', component:UsuarioDetalhe, props:true,name:'userDetails'},
         {path:':iduser/editar', component:UsuarioEditar,props:true}
     ]

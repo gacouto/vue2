@@ -6,6 +6,21 @@ body {
     color: #FFF;
     font-size: 1.8rem;
 }
+@keyframes ffp-in {
+    to{ transform: rotateY(0deg); }
+    from{transform: rotateY(90deg); }
+}
+@keyframes ffp-out {
+    to{transform: rotateY(90deg); }
+    from{transform: rotateY(0deg); }
+}
+.flipflop-enter-active{
+    animation:ffp-in 2s ease;
+
+}
+.flipflop-leave-active{
+    animation:ffp-out 2s ease;
+}
 
 h1, h2, h3 {
     margin: 10px 0px;

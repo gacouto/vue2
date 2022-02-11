@@ -1,7 +1,7 @@
 <template>
   <section class="tcenter">
     <transition name="flipflop" mode="out-in">
-        <span class="msgAlert" v-if="messageAlert">{{ messageAlert }}</span>
+        <div class="msgAlert" v-show="messageAlert">{{ messageAlert }}</div>
     </transition>
     <div class="d-flex">
       <span>
@@ -79,19 +79,5 @@ input[type="range"] {
   transform: rotate(-90deg);
   margin-top: 50%;
 }
-@keyframes ffp-in {
-    from{ transform: rotateX(0deg); }
-    to{transform: rotateX(90deg); }
-}
-@keyframes ffp-out {
-    from{transform: rotateX(90deg); }
-    to{transform: rotateX(0deg); }
-}
-.flipflop-enter-active{
-    animation:ffp-in 2s ease;
 
-}
-.flipflop-leave-active{
-    animation:ffp-out 2s ease;
-}
 </style>
