@@ -7,7 +7,10 @@ Vue.use({
     install(Vue){
         //Vue.prototype.$http = axios
         Vue.prototype.$http = axios.create({
-            baseURL:baseURL
+            baseURL:baseURL,
+            headers:{
+                Authorizss:'yup'
+            }
         })
         Vue.prototype.$http.interceptors.request.use(config=>{
             
@@ -18,10 +21,10 @@ Vue.use({
             let {data} = res
             
             let arrayWithIds =[]
-            for (const animeId in data) {
+            for (const id in data) {
                 arrayWithIds.push({
-                    animeId,
-                    ...data[animeId]
+                    id,
+                    ...data[id]
                 })
             } 
             res.data = arrayWithIds
