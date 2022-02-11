@@ -15,11 +15,11 @@ body {
     from{transform: rotateY(0deg); }
 }
 .flipflop-enter-active{
-    animation:ffp-in 2s ease;
+    animation:ffp-in 1s ease;
 
 }
 .flipflop-leave-active{
-    animation:ffp-out 2s ease;
+    animation:ffp-out 1s ease;
 }
 
 h1, h2, h3 {

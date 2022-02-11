@@ -9,7 +9,7 @@
         <ul class="lista">
           <span v-for="(links, indx) of linksList" :key="indx">
             <router-link tag="li" :to="links" class="item-lista">
-              {{ typeof links === "string" ? links : "usuario/2" }}</router-link   >
+              {{links.params.iduser}}</router-link   >
           </span>
         </ul>
       </span>
@@ -29,9 +29,9 @@ export default {
   data() {
     return {
       linksList: [
-        "usuario/3",
-        { name: "userDetails", params: { iduser: 2 } },
-        "usuario/1",
+        { name: "userDetails", params: { iduser: 3 }, query:{favoriteFood:'pizza'}, hash:'#footer' },
+        { name: "userDetails", params: { iduser: 2 }, query:{favoriteFood:'hamburger'} },
+        { name: "userDetails", params: { iduser: 1 }, query:{favoriteFood:'açai'} }, 
       ],
       numberOfLinksOnList: 3,
       messageAlert: "",

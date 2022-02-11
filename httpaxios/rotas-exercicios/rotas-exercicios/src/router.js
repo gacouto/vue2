@@ -16,6 +16,10 @@ Vue.use(VueRouter)
 
 export default new VueRouter({
     mode:'history',
+    scrollBehavior(){
+        
+        return {x:0, y:1000 }
+    },
     routes: [{
         path: '/',
         component: Inicio,        
@@ -31,6 +35,10 @@ export default new VueRouter({
         {path:':iduser', component:UsuarioDetalhe, props:true,name:'userDetails'},
         {path:':iduser/editar', component:UsuarioEditar,props:true}
     ]
+    },
+    {
+        path:'*',
+        redirect:'/usuario'
     }
     ]
 })

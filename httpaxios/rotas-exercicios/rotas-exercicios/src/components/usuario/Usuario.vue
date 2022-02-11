@@ -9,9 +9,9 @@
       appear
       mode="out-in"
     >
-      <router-view></router-view>
-    </transition>
     <router-view name="menu"></router-view>
+    </transition>
+      <router-view></router-view>
 
     <button sucesso @click="goToStart">back</button>
   </div>
