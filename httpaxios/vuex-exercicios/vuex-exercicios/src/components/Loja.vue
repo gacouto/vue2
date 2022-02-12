@@ -27,7 +27,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['addProduct']),
+        ...mapActions('carrinho',['addProduct','globalShowOff']),
         //...mapMutations(['addProduct']),
         adicionar() {
             const produto = {
@@ -41,8 +41,9 @@ export default {
             console.log(produto)
             //this.$store.state.produtos.push(produto)
             //this.$store.commit('addProduct',produto)
-            //this.addProduct(produto)
-            this.$store.dispatch('addProduct',produto)
+            this.addProduct(produto)
+            this.$store.dispatch('globalShowOff')
+            //this.$store.dispatch('addProduct',produto)
             console.log(this.$store.getters.getCompleteName)
         }
     }
