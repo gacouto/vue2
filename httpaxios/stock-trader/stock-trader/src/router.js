@@ -6,8 +6,7 @@ import Portfolio from './components/portfolio/Portfolio'
 import Stocks from './components/stocks/Stocks'
 
 Vue.use(Router)
-
-export default new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         { path: '/', component: Home },
@@ -15,3 +14,4 @@ export default new Router({
         { path: '/stocks', component: Stocks },
     ]
 })
+export default router;
