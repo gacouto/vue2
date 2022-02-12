@@ -3,15 +3,12 @@
     <h1>componente usuario</h1>
 
     <hr />
+    <router-view></router-view>
     <hr />
 
-    <transition name="flipflop"
-      appear
-      mode="out-in"
-    >
-    <router-view name="menu"></router-view>
+    <transition name="flipflop" appear mode="out-in">
+      <router-view name="menu"></router-view>
     </transition>
-      <router-view></router-view>
 
     <button sucesso @click="goToStart">back</button>
   </div>

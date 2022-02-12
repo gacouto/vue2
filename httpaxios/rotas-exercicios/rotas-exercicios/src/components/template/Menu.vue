@@ -1,7 +1,7 @@
 <template>
   <nav class="menu">
     <div>
-        <router-link to="/usuario"> usuario</router-link>
+        <router-link to="/usuario" sucesso> usuario</router-link>
     <router-link :to="'/usuario/1'" active-class="active" tag="span"
       >user 1</router-link    >
     <router-link  to="/usuario/2" active-class="active" tag="span">
