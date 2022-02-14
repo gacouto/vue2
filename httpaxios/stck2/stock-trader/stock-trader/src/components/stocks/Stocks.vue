@@ -2,7 +2,7 @@
   <div>
     {{testLocal }}
     <StockList :stocks="stocksAvailable" 
-   @buyOrSellButtonClicked="sellStock"/>
+   @buyOrSellButtonClicked="buyStock"/>
   </div>
 </template>
 <script>
@@ -21,9 +21,7 @@ export default {
   }),
   methods: {
     ...mapActions("stocks", ["buyStock"]),
-    sellStock(stock){
-      
-    }
+    
   },
 };
 </script>

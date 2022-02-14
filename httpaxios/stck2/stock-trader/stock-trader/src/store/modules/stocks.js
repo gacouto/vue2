@@ -16,7 +16,7 @@ export default {
         
     },
     actions:{
-        buyStock(c,quantity){
+        buyStock(c,stockWithQuantity){
             console.log(quantity)
             
             this._vm.$http.get('animes.json').then(({data})=>{
