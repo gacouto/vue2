@@ -33,8 +33,7 @@ export default {
     },
   },
   methods: {
-    buyOrSell(quantity,stock) {
-      console.log("🚀 ~ file: StockList.vue ~ line 37 ~ buyOrSell ~ quantity", quantity)
+    buyOrSell(quantity,stock) { 
       let stockWithQuantity = {
         quantity,
         ...stock

@@ -16,12 +16,12 @@ export default {
         
     },
     actions:{
-        buyStock(c,stockWithQuantity){
-            console.log(stockWithQuantity)
+        buyStock({state,rootState,commit,dispatch},stockWithQuantity){ 
             
             this._vm.$http.get('animes.json').then(({data})=>{
-                 
-                console.log('how'+data)})
+                 dispatch('addStockToPortfolio',stockWithQuantity,{root:true})
+                
+                })
         }
     }
 }
