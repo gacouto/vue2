@@ -5,7 +5,7 @@ export default {
         stocksAcquired: []
     },
     getters: {
-        getStockById(state){
+        getStockById(state) {
             //return stockId => state.stocksAcquired. 
         }
     },
@@ -29,26 +29,31 @@ export default {
             }
 
         },
-        removeFromStocks(state, {stockWithQuantity,indexOfStock}) { 
+        removeFromStocks(state, { stockWithQuantity, indexOfStock }) {
             let stock = state.stocksAcquired[indexOfStock]
             if (stock.quantity <= stockWithQuantity.inputQuantity) {
                 state.stocksAcquired.splice(indexOfStock, 1)
             } else {
                 stock.quantity -= stockWithQuantity.inputQuantity
             }
-
+        },
+        updateFlutuatePortfolioPrice(state, { newPrice, stockId }) {
+            let indexOfStock = state.stocksAcquired.findIndex(stock => stock.id === stockId)
+            if (indexOfStock >= 0) {
+                state.stocksAcquired[indexOfStock].price = newPrice
+            }
         }
     },
     actions: {
-        sellStock({ commit,dispatch,state }, stockWithQuantity) {
+        sellStock({ commit, dispatch, state }, stockWithQuantity) {
             this._vm.$http.get('animes.json').then(({ data }) => {
 
                 let indexOfStock = state.stocksAcquired.findIndex(
-                    (stock) => stock.id === stockWithQuantity.id )
-                let profit = state.stocksAcquired[indexOfStock].price*stockWithQuantity.inputQuantity
-                //debugger
-                commit('removeFromStocks', {stockWithQuantity,indexOfStock})
-                dispatch('addProfit',profit,{root:true})
+                    (stock) => stock.id === stockWithQuantity.id)
+                let profit = state.stocksAcquired[indexOfStock].price * stockWithQuantity.inputQuantity
+
+                commit('removeFromStocks', { stockWithQuantity, indexOfStock })
+                dispatch('addProfit', profit, { root: true })
             })
         },
         addStockToPortfolio({ commit }, stockWithQuantity) {

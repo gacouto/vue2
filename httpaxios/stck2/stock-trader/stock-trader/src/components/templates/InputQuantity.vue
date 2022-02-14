@@ -6,7 +6,7 @@
       type="number"
       v-model.number="quantity"
     ></v-text-field>
-    <v-btn color="blue" :disabled="isMaxQuantityOverstepped" @click="$emit('quantityChanged', quantity)">
+    <v-btn color="blue" :disabled="isMaxQuantityOverstepped" @click="sellOrBuyByQuantity">
       {{ buttonText }}
     </v-btn>
   </v-card-actions>
@@ -37,6 +37,12 @@ export default {
           }else{
               this.isMaxQuantityOverstepped=false
           }
+      }
+  },
+  methods:{
+      sellOrBuyByQuantity(){
+          this.$emit('quantityChanged', this.quantity)
+          setTimeout(()=>{this.quantity=0},100)
       }
   }
 };

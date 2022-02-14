@@ -1,37 +1,42 @@
- 
+
 export default {
-    namespaced:true,
+    namespaced: true,
     state: {
-         stocksAvailable:[
-             {id:1,name:'Apple',price:12},
-             {id:2,name:'BMW',price:22},
-             {id:3,name:'QWST',price:42},
-             {id:4,name:'Google',price:552},
-         ]
+        stocksAvailable: [
+            { id: 1, name: 'Apple', price: 12 },
+            { id: 2, name: 'BMW', price: 22 },
+            { id: 3, name: 'QWST', price: 42 },
+            { id: 4, name: 'Google', price: 552 },
+        ]
     },
     getters: {
-        
+
     },
-    mutations:{ 
-        changeAllStocksPrices(state){
-            state.stocksAvailable.forEach((stock)=>{
-                let priceIntervalMax = stock.price+150
-                let priceIntervalMin = stock.price-50
-                let flutuation = Math.random() * (priceIntervalMax -  priceIntervalMin+1) + priceIntervalMin
-                stock.price = Math.ceil(flutuation)
-                console.log("🚀 ~ file: stocks.js ~ line 22 ~ state.stocksAvailable.forEach ~ flutuation", flutuation)
-            })
+    mutations: { 
+        updateStockPrice(state, { newPrice, index }) {
+            state.stocksAvailable[index].price = newPrice
         }
     },
-    actions:{
-        buyStock({state,rootState,commit,dispatch},stockWithQuantity){  
-            this._vm.$http.get('animes.json').then(({data})=>{
-                 dispatch('addStockToPortfolio',stockWithQuantity,{root:true})
-                
-                })
+    actions: {
+        buyStock({ state, rootState, commit, dispatch }, stockWithQuantity) {
+            this._vm.$http.get('animes.json').then(({ data }) => {
+                dispatch('addStockToPortfolio', stockWithQuantity, { root: true })
+
+            })
         },
-        callItADay({commit}){
-            commit('changeAllStocksPrices')
+        callItADay({ commit, dispatch, state }) {
+            console.log("🚀 ~ file: stocks.js ~ line 37 ~ callItADay ~ state", state)
+            state.stocksAvailable.forEach((stock, index) => {
+                let priceIntervalMax = stock.price + 70
+                let priceIntervalMin = stock.price - 50
+                let newPrice = Math.random() * (priceIntervalMax - priceIntervalMin + 1) + priceIntervalMin
+                newPrice = Math.ceil(newPrice)
+                commit('updateStockPrice', { newPrice, index })
+                commit('portfolio/updateFlutuatePortfolioPrice', { newPrice, stockId: stock.id },{root:true})
+
+
+            })
+
         }
     }
 }
