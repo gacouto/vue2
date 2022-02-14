@@ -3,29 +3,27 @@
     <v-card v-for="stock in stocks" :key="stock.id" class="pa-2 ma-2 w-calc">
       <v-toolbar card color="blue">
         <v-toolbar-title>
-          <strong>{{stock.name}}</strong>(Preço:{{stock.price}})
+          <strong>{{stock.name+' '}} </strong>
+           (Preço: {{' '+stock.price}} 
+          <span v-if="isPortfolio">{{ ' | '+stock.quantity}}</span> )
         </v-toolbar-title>
       </v-toolbar>
 
       <v-card-text>
-        <v-card-actions>
-          <v-text-field  label="Qtd" type="number"
-           v-model.number="quantity"></v-text-field>
-          <v-btn color="blue" disabled @click="buyOrSell(stock)">
-             {{buttonText}} </v-btn>
-        </v-card-actions>
-
+        <InputQuantity @quantityChanged="buyOrSell($event,stock)" />
         <v-divider class="my-2"></v-divider>
       </v-card-text>
     </v-card>
   </v-layout>
 </template>
 <script>
+import InputQuantity from './InputQuantity.vue';
 export default {
+  components: { InputQuantity },
   data(){
-    return{
-      quantity:0
-      
+    return{      
+      stocksWithQuantity:{        
+      }
     }
   },
   props: {
@@ -35,20 +33,27 @@ export default {
     },
   },
   methods: {
-    buyOrSell(stock) {
+    buyOrSell(quantity,stock) {
+      console.log("🚀 ~ file: StockList.vue ~ line 37 ~ buyOrSell ~ quantity", quantity)
       let stockWithQuantity = {
-        quantity:this.quantity,
+        quantity,
         ...stock
-      }
+      } 
       this.$emit("buyOrSellButtonClicked", stockWithQuantity);
     },
+    handleKeyUp(event){
+      console.log(event)
+    }
   },
   computed:{
-    buttonText(){      
-      if(!this.stocks) return ''
+    isPortfolio(){      
+      if(!this.stocks) return null
       let isPortfolio = this.stocks.quantity
-      if(isPortfolio) return 'Vender'
-      else return 'Comprar'    
+      if(isPortfolio) return true
+      else return false
+    },
+    buttonText(){
+      return this.isPortfolio ? 'Vender' : 'Comprar'
     }
   }
 };
