@@ -12,6 +12,9 @@ export default {
         valorTotal(state,getters,rootState) {
             return state.produtos.map(p => p.quantidade * p.preco)
                 .reduce((total, atual) => total + atual, 0)
+        },
+        getP(){
+
         }
     },
     mutations:{
@@ -29,7 +32,7 @@ export default {
             //context.rootState
             setTimeout(()=>{
                 context.commit('addProduct',payload)
-            },2000)
+            },1000)
         }
     }
 }
