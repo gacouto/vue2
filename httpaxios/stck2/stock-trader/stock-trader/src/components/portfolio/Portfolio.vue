@@ -1,5 +1,5 @@
 <template>
-  <StockList></StockList>
+  <StockList @buyOrSellButtonClicked="sellStock"></StockList>
 </template>
 <script>
 import StockList from "../templates/StockList.vue";

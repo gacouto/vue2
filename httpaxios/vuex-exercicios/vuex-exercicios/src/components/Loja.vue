@@ -5,7 +5,7 @@
             <input type="number" v-model.number="quantity">
             <span>itens de <strong>R$</strong></span>
             <input type="number" v-model.number="price">
-            <button @click="adicionar">Agora!</button>
+            <button @click="adicionar">adicionar</button>
         </div>
     </Painel>
 </template>

@@ -14,19 +14,13 @@
               :to="links"
               :isTokenPresent="1"
               class="item-lista"            >
-              {{ links.params.iduser }}</router-link
-            >
+              {{ links.params.iduser }}</router-link >
           </span>
         </ul>
       </span>
       <span>
-        <input
-          type="range"
-          v-model="numberOfLinksOnList"
-          name="vol"
-          min="3"
-          max="50"
-        />
+        <input  type="range"  v-model="numberOfLinksOnList"
+          name="vol"   min="3"    max="50"     />
       </span>
       <div>
         <p>{{ "test/3" | removeBackslash }}</p>
