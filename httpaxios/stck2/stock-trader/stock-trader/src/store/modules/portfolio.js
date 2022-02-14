@@ -5,35 +5,54 @@ export default {
         stocksAcquired: []
     },
     getters: {
-
+        getStockById(state){
+            //return stockId => state.stocksAcquired. 
+        }
     },
     mutations: {
         addToStocks({ stocksAcquired }, stockWithQuantity) {
-             
+
             let indexOfStock = stocksAcquired.findIndex(
                 (stock) => stock.id === stockWithQuantity.id)
 
             let isStockAlreadyPresent = indexOfStock > -1
             if (isStockAlreadyPresent) {
-                stocksAcquired[indexOfStock].quantity += stockWithQuantity.quantity
+                stocksAcquired[indexOfStock].quantity += stockWithQuantity.inputQuantity
             }
             else {
-                stocksAcquired.push(stockWithQuantity)
+                let newStockWithQuantity = {
+                    ...stockWithQuantity,
+                    quantity: stockWithQuantity.inputQuantity
+                }
+                delete newStockWithQuantity.inputQuantity
+                stocksAcquired.push(newStockWithQuantity)
+            }
 
+        },
+        removeFromStocks(state, {stockWithQuantity,indexOfStock}) { 
+            let stock = state.stocksAcquired[indexOfStock]
+            if (stock.quantity <= stockWithQuantity.inputQuantity) {
+                state.stocksAcquired.splice(indexOfStock, 1)
+            } else {
+                stock.quantity -= stockWithQuantity.inputQuantity
             }
 
         }
     },
     actions: {
-        buyStock(c, stockWithQuantity) {
-
+        sellStock({ commit,dispatch,state }, stockWithQuantity) {
             this._vm.$http.get('animes.json').then(({ data }) => {
 
-                console.log('how' + data)
+                let indexOfStock = state.stocksAcquired.findIndex(
+                    (stock) => stock.id === stockWithQuantity.id )
+                let profit = state.stocksAcquired[indexOfStock].price*stockWithQuantity.inputQuantity
+                //debugger
+                commit('removeFromStocks', {stockWithQuantity,indexOfStock})
+                dispatch('addProfit',profit,{root:true})
             })
         },
         addStockToPortfolio({ commit }, stockWithQuantity) {
-            commit('addToStocks', stockWithQuantity) 
+            commit('addToStocks', stockWithQuantity)
 
         }
     }

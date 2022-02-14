@@ -8,9 +8,12 @@ const store = new Vuex.Store({
     state: {
         todaysBalance: 10000
     },
-    mutations:{
-        decreaseBalance(state,price){ 
-            state.todaysBalance-=price 
+    mutations: {
+        decreaseBalance(state, price) {
+            state.todaysBalance -= price
+        },
+        increaseBalance(state, price) { 
+            state.todaysBalance += price
         }
     },
     getters: {
@@ -23,11 +26,14 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        addStockToPortfolio({dispatch,commit},stockWithQuantity) {
-            let totalDebt = stockWithQuantity.price * stockWithQuantity.quantity  
-            commit('decreaseBalance',totalDebt)
-            dispatch('portfolio/addStockToPortfolio',stockWithQuantity)
-         }
+        addStockToPortfolio({ dispatch, commit }, stockWithQuantity) {
+            let totalDebt = stockWithQuantity.price * stockWithQuantity.inputQuantity
+            commit('decreaseBalance', totalDebt)
+            dispatch('portfolio/addStockToPortfolio', stockWithQuantity)
+        },
+        addProfit({ commit }, profit) {
+            commit('increaseBalance', profit)
+        }
     },
     modules: { stocks, portfolio },
 

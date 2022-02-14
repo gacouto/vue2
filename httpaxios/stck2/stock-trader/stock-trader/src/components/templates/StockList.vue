@@ -4,13 +4,15 @@
       <v-toolbar card color="blue">
         <v-toolbar-title>
           <strong>{{stock.name+' '}} </strong>
-           (Preço: {{' '+stock.price}} 
-          <span v-if="isPortfolio">{{ ' | '+stock.quantity}}</span> )
+           (Preço: {{'R$ '+stock.price}} 
+          <span v-if="isPortfolio">{{ ' | Qtd: '+stock.quantity}}</span> )
         </v-toolbar-title>
       </v-toolbar>
 
       <v-card-text>
-        <InputQuantity @quantityChanged="buyOrSell($event,stock)" />
+        <InputQuantity @quantityChanged="buyOrSell($event,stock)" 
+        :buttonText="buttonText"
+        :maxQuantity="stock.quantity" />
         <v-divider class="my-2"></v-divider>
       </v-card-text>
     </v-card>
@@ -33,21 +35,18 @@ export default {
     },
   },
   methods: {
-    buyOrSell(quantity,stock) { 
+    buyOrSell(inputQuantity,stock) { 
       let stockWithQuantity = {
-        quantity,
+        inputQuantity,
         ...stock
       } 
       this.$emit("buyOrSellButtonClicked", stockWithQuantity);
-    },
-    handleKeyUp(event){
-      console.log(event)
-    }
+    } 
   },
   computed:{
     isPortfolio(){      
       if(!this.stocks) return null
-      let isPortfolio = this.stocks.quantity
+      let isPortfolio = this.stocks[0].quantity
       if(isPortfolio) return true
       else return false
     },

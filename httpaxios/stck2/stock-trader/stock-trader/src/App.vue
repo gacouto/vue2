@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-app>
     <Toolbar />
     <v-container fluid>
       <v-scale-transition>
         <router-view></router-view>
       </v-scale-transition>
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>

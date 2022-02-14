@@ -1,7 +1,6 @@
 <template>
-  <div>
-    {{ testLocal }}
-    <StockList :stocks="stocksAvailable" @buyOrSellButtonClicked="buyStock" />
+  <div> 
+    <StockList :stocks="stocksAcquired" @buyOrSellButtonClicked="sellStock" />
   </div>
 </template>
 <script>
@@ -9,16 +8,9 @@ import StockList from "../templates/StockList.vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   components: { StockList },
-  computed: mapState({
-    testLocal() {
-      return 3;
-    },
-    stocksAvailable(state) {
-      return state.stocks.stocksAvailable;
-    },
-  }),
+  computed: {...mapState('portfolio',['stocksAcquired'])},
   methods: {
-    ...mapActions("stocks", ["buyStock"]),
+    ...mapActions("portfolio", ["sellStock"]),
   },
 };
 </script>
