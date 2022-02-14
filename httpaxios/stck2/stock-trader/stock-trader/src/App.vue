@@ -1,7 +1,11 @@
 <template>
   <div>
     <Toolbar />
-    <h1>Stock Trader</h1>
+    <v-container fluid>
+      <v-scale-transition>
+        <router-view></router-view>
+      </v-scale-transition>
+    </v-container>
   </div>
 </template>
 

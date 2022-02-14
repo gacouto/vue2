@@ -1,5 +1,5 @@
 <template>
-    <stock-list></stock-list>
+    <StockList></StockList>
 </template>
 <script>
 import StockList from '../StockList.vue'
