@@ -1,16 +1,14 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-import carrinho from './modules/carrinho'  
+import Vuex from 'vuex' 
 import stocks from './modules/stocks'  
+import portfolio from './modules/portfolio'  
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state:{
-        name:'Pizzaman',
-        middlename:'Calabresa',
-
+        todaysBalance:10000
     }, 
-    modules:{stocks},
+    modules:{stocks,portfolio},
      
 })
 

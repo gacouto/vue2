@@ -17,11 +17,3 @@
     </v-card>
   </v-layout>
 </template>
-<script>
-import {mapActions} from 'vuex'
- export default {
- methods:{
-   ...mapActions('stocks', ['buyStock']),
-   } 
-}
-</script>

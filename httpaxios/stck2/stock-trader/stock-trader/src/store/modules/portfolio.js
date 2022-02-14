@@ -2,7 +2,7 @@
 export default {
     namespaced:true,
     state: {
-         stocksAvailable:[]
+         stocksAcquired:[]
     },
     getters: {
         
@@ -11,7 +11,7 @@ export default {
         
     },
     actions:{
-        buyStock(c,quantity){
+        sellStock(c,quantity){
             console.log(quantity)
             
             this._vm.$http.get('animes.json').then(({data})=>{
