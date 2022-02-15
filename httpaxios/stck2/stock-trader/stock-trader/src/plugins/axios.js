@@ -8,6 +8,13 @@ Vue.use({
         //Vue.prototype.$http = axios
         Vue.prototype.$http = axios.create({
             baseURL:baseURL,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Methods' : '*',
+                'Access-Control-Allow-Credentials' : true
+              }
             /* headers:{
                 Authorizss:'yup'
             } */

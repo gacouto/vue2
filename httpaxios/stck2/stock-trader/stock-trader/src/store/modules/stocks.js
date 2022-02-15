@@ -15,14 +15,17 @@ export default {
     mutations: { 
         updateStockPrice(state, { newPrice, index }) {
             state.stocksAvailable[index].price = newPrice
+        },
+        setStocksAvailable(state,stocks){
+            state.stocksAvailable = stocks
         }
     },
     actions: {
         buyStock({ state, rootState, commit, dispatch }, stockWithQuantity) {
-            this._vm.$http.get('animes.json').then(({ data }) => {
-                dispatch('addStockToPortfolio', stockWithQuantity, { root: true })
-
-            })
+            /* this._vm.$http.get('/').then(({ data }) => {
+                
+            }) */
+            dispatch('addStockToPortfolio', stockWithQuantity, { root: true })
         },
         callItADay({ commit, dispatch, state }) {
             console.log("🚀 ~ file: stocks.js ~ line 37 ~ callItADay ~ state", state)
@@ -37,6 +40,18 @@ export default {
 
             })
 
+        },
+        async startDb({state}){
+                let data = {stocksAvailable:state.stocksAvailable} 
+              await this._vm.$http.patch('/stocktrader/stocks.json',data).then(({ data }) => {})
+                
+        },
+        async loadFromDb({commit}){
+            await this._vm.$http.get('/stocktrader/stocks.json').then(({ data }) => {
+                let nonNullArray = data.stocksAvailable.filter(stock=>stock)
+                commit('setStocksAvailable',nonNullArray)
+                console.log("🚀 ~ file: stocks.js ~ line 51 ~ awaitthis._vm.$http.get ~ data ", data )
+            })
         }
     }
 }

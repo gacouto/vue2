@@ -10,7 +10,10 @@ export default {
   components: { StockList },
   computed: {...mapState('portfolio',['stocksAcquired'])},
   methods: {
-    ...mapActions("portfolio", ["sellStock"]),
+    ...mapActions("portfolio", ["sellStock","loadFromDb"]),
   },
+  mounted(){
+      this.loadFromDb()
+  }
 };
 </script>

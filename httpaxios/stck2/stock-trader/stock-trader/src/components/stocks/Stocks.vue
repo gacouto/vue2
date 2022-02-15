@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div >
     {{ testLocal }}
+    <v-btn @click="startDb">startDb</v-btn>
     <StockList :stocks="stocksAvailable" @buyOrSellButtonClicked="buyStock" />
   </div>
 </template>
@@ -18,7 +19,7 @@ export default {
     },
   }),
   methods: {
-    ...mapActions("stocks", ["buyStock"]),
+    ...mapActions("stocks", ["buyStock","startDb"]),
   },
 };
 </script>

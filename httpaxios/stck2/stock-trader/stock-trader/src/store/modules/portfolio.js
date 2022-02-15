@@ -11,7 +11,7 @@ export default {
     },
     mutations: {
         addToStocks({ stocksAcquired }, stockWithQuantity) {
-
+            //deprecated
             let indexOfStock = stocksAcquired.findIndex(
                 (stock) => stock.id === stockWithQuantity.id)
 
@@ -29,6 +29,13 @@ export default {
             }
 
         },
+        addStock(state, newStockWithQuantity) {
+            state.stocksAcquired.push(newStockWithQuantity)
+        },
+        changeStockQuantity(state, { indexOfStock, newQuantity }) {
+            state.stocksAcquired[indexOfStock].quantity += newQuantity
+        },
+
         removeFromStocks(state, { stockWithQuantity, indexOfStock }) {
             let stock = state.stocksAcquired[indexOfStock]
             if (stock.quantity <= stockWithQuantity.inputQuantity) {
@@ -42,23 +49,51 @@ export default {
             if (indexOfStock >= 0) {
                 state.stocksAcquired[indexOfStock].price = newPrice
             }
+        },
+        setStocksAcquired(state,stocks){
+            state.stocksAcquired = stocks
         }
     },
     actions: {
-        sellStock({ commit, dispatch, state }, stockWithQuantity) {
-            this._vm.$http.get('animes.json').then(({ data }) => {
+        async sellStock({ commit, dispatch, state }, stockWithQuantity) {
 
-                let indexOfStock = state.stocksAcquired.findIndex(
-                    (stock) => stock.id === stockWithQuantity.id)
-                let profit = state.stocksAcquired[indexOfStock].price * stockWithQuantity.inputQuantity
+            let indexOfStock = state.stocksAcquired.findIndex(
+                (stock) => stock.id === stockWithQuantity.id)
+            let profit = state.stocksAcquired[indexOfStock].price * stockWithQuantity.inputQuantity
 
-                commit('removeFromStocks', { stockWithQuantity, indexOfStock })
-                dispatch('addProfit', profit, { root: true })
+            commit('removeFromStocks', { stockWithQuantity, indexOfStock })
+            dispatch('addProfit', profit, { root: true })
+            await this._vm.$http.patch('/stocktrader/portfolio.json',{stocksAcquired: state.stocksAcquired}).then(({ data }) => {
             })
         },
-        addStockToPortfolio({ commit }, stockWithQuantity) {
-            commit('addToStocks', stockWithQuantity)
+        async addStockToPortfolio({ commit, state }, stockWithQuantity) {
+            //commit('addToStocks', stockWithQuantity)            
+            let indexOfStock = state.stocksAcquired.findIndex(
+                (stock) => stock.id === stockWithQuantity.id)
 
+            let isStockAlreadyPresent = indexOfStock > -1
+            if (isStockAlreadyPresent) {
+                commit('changeStockQuantity', { indexOfStock, newQuantity: stockWithQuantity.inputQuantity })
+            }
+            else {
+                let newStockWithQuantity = {
+                    ...stockWithQuantity,
+                    quantity: stockWithQuantity.inputQuantity
+                }
+                delete newStockWithQuantity.inputQuantity
+                commit('addStock', newStockWithQuantity)
+            }
+            await this._vm.$http.patch('/stocktrader/portfolio.json', { stocksAcquired: state.stocksAcquired }).then(dat => {
+            })
+            //this._vm.$http.post(`stocks.json`)
+
+        },
+        async loadFromDb({commit}){
+            await this._vm.$http.get('/stocktrader/portfolio.json').then(({ data }) => {
+                let nonNullArray = data.stocksAcquired.filter(stock=>stock)
+                commit('setStocksAcquired',nonNullArray)
+                console.log("🚀 ~ file: stocks.js ~ line 51 ~ awaitthis._vm.$http.get ~ data ", data )
+            })
         }
     }
 }

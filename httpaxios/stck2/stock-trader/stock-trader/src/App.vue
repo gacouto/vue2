@@ -12,7 +12,11 @@
 <script>
 import Toolbar from './components/Toolbar.vue';
 export default {
-  components: { Toolbar },};
+  components: { Toolbar },
+ mounted(){
+	 this.$store.dispatch('stocks/loadFromDb')
+ } 
+  };
 </script>
 
 <style>
