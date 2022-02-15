@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import stocks from './modules/stocks'
 import portfolio from './modules/portfolio'
+import BalanceService from './services/BalanceService'
 
 
 Vue.use(Vuex)
@@ -15,6 +16,9 @@ const store = new Vuex.Store({
         },
         increaseBalance(state, price) {
             state.todaysBalance += price
+        },
+        setNewBalance(state,balance){
+            state.todaysBalance = balance
         }
     },
     getters: {
@@ -42,9 +46,14 @@ const store = new Vuex.Store({
                 dispatch('stocks/saveOnDb')                
             })
         },
-        loadAllFromDb({ dispatch }) {
-            dispatch('portfolio/loadFromDb')
-            dispatch('stocks/loadFromDb')
+        async loadAllFromDb({ dispatch,commit }) {
+            let tin = await BalanceService.get()
+            console.log("🚀 ~ file: store.js ~ line 51 ~ loadAllFromDb ~ tin", tin)
+              await this._vm.$http.get('/stocktrader/todaysBalance.json').then(({data})=>{
+                  commit('setNewBalance',data.todaysBalance)
+                  dispatch('portfolio/loadFromDb')
+                  dispatch('stocks/loadFromDb')
+              })
         }
     },
     modules: { stocks, portfolio },
