@@ -1,6 +1,7 @@
 <template>
   <v-layout row wrap align-start justify-center>
-    <v-card v-for="stock in stocks" :key="stock.id" class="pa-2 ma-2 w-calc">
+    <v-card v-for="stock in stocks" :key="stock.id" class="pa-2 ma-2 w-calc" 
+       >
       <v-toolbar card color="blue">
         <v-toolbar-title>
           <strong>{{stock.name+' '}} </strong>
@@ -24,8 +25,8 @@ export default {
   components: { InputQuantity },
   data(){
     return{      
-      stocksWithQuantity:{        
-      }
+      /* stocksWithQuantity:{        
+      } */
     }
   },
   props: {

@@ -3,10 +3,7 @@ export default {
     namespaced: true,
     state: {
         stocksAvailable: [
-            { id: 1, name: 'Apple', price: 12 },
-            { id: 2, name: 'BMW', price: 22 },
-            { id: 3, name: 'QWST', price: 42 },
-            { id: 4, name: 'Google', price: 552 },
+          
         ]
     },
     getters: {
@@ -18,6 +15,9 @@ export default {
         },
         setStocksAvailable(state,stocks){
             state.stocksAvailable = stocks
+        },
+        reverseStocksList(state){
+            state.stocksAvailable.reverse()
         }
     },
     actions: {
@@ -28,7 +28,6 @@ export default {
             dispatch('addStockToPortfolio', stockWithQuantity, { root: true })
         },
         callItADay({ commit, dispatch, state }) {
-            console.log("🚀 ~ file: stocks.js ~ line 37 ~ callItADay ~ state", state)
             state.stocksAvailable.forEach((stock, index) => {
                 let priceIntervalMax = stock.price + 70
                 let priceIntervalMin = stock.price - 50
@@ -40,18 +39,20 @@ export default {
 
             })
 
-        },
-        async startDb({state}){
-                let data = {stocksAvailable:state.stocksAvailable} 
-              await this._vm.$http.patch('/stocktrader/stocks.json',data).then(({ data }) => {})
-                
+        }, 
+        async saveOnDb({state}){
+            let data = {stocksAvailable:state.stocksAvailable} 
+            
+            console.log("🚀 ~ file: stocks.js ~ line 46 ~ saveOnDb ~ data", data)
+            await this._vm.$http.patch('/stocktrader/stocks.json',data).then(({ data }) => {})
+             
         },
         async loadFromDb({commit}){
             await this._vm.$http.get('/stocktrader/stocks.json').then(({ data }) => {
                 let nonNullArray = data.stocksAvailable.filter(stock=>stock)
-                commit('setStocksAvailable',nonNullArray)
-                console.log("🚀 ~ file: stocks.js ~ line 51 ~ awaitthis._vm.$http.get ~ data ", data )
+                commit('setStocksAvailable',nonNullArray) 
             })
-        }
+        },
+        
     }
 }

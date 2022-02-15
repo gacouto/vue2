@@ -83,16 +83,18 @@ export default {
                 delete newStockWithQuantity.inputQuantity
                 commit('addStock', newStockWithQuantity)
             }
-            await this._vm.$http.patch('/stocktrader/portfolio.json', { stocksAcquired: state.stocksAcquired }).then(dat => {
-            })
-            //this._vm.$http.post(`stocks.json`)
+            
 
+        },
+        async saveOnDb({state}){
+            await this._vm.$http.patch('/stocktrader/portfolio.json',
+             { stocksAcquired: state.stocksAcquired }).then(dat => {
+            })
         },
         async loadFromDb({commit}){
             await this._vm.$http.get('/stocktrader/portfolio.json').then(({ data }) => {
                 let nonNullArray = data.stocksAcquired.filter(stock=>stock)
-                commit('setStocksAcquired',nonNullArray)
-                console.log("🚀 ~ file: stocks.js ~ line 51 ~ awaitthis._vm.$http.get ~ data ", data )
+                commit('setStocksAcquired',nonNullArray) 
             })
         }
     }

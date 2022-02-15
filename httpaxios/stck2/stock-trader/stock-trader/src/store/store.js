@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import stocks from './modules/stocks'
 import portfolio from './modules/portfolio'
- 
+
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -30,16 +30,21 @@ const store = new Vuex.Store({
         async addStockToPortfolio({ dispatch, commit, state }, stockWithQuantity) {
             let totalDebt = stockWithQuantity.price * stockWithQuantity.inputQuantity
             commit('decreaseBalance', totalDebt)
-            dispatch('portfolio/addStockToPortfolio', stockWithQuantity) 
-           
-            //await axios.post(baseURL+'/stocktrader.json/todaysBalance',{todaysBalance:state.todaysBalance})
-            await this._vm.$http.patch('/stocktrader/todaysBalance.json',{todaysBalance:state.todaysBalance}).then(dat => {
-                console.log("🚀 ~ file: store.js ~ line 37 ~ awaitaxios.get ~ dat", dat)
+            dispatch('portfolio/addStockToPortfolio', stockWithQuantity)
 
-            })
         },
         addProfit({ commit }, profit) {
             commit('increaseBalance', profit)
+        },
+        async saveAllOnDb({dispatch,state}){
+            await this._vm.$http.patch('/stocktrader/todaysBalance.json',{todaysBalance:state.todaysBalance}).then(dat => {
+                dispatch('portfolio/saveOnDb')
+                dispatch('stocks/saveOnDb')                
+            })
+        },
+        loadAllFromDb({ dispatch }) {
+            dispatch('portfolio/loadFromDb')
+            dispatch('stocks/loadFromDb')
         }
     },
     modules: { stocks, portfolio },

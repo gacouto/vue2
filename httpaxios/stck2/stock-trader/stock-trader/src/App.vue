@@ -14,7 +14,7 @@ import Toolbar from './components/Toolbar.vue';
 export default {
   components: { Toolbar },
  mounted(){
-	 this.$store.dispatch('stocks/loadFromDb')
+	 ///this.$store.dispatch('stocks/loadFromDb')
  } 
   };
 </script>

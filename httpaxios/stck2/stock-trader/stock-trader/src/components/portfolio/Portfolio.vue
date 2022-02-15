@@ -11,9 +11,6 @@ export default {
   computed: {...mapState('portfolio',['stocksAcquired'])},
   methods: {
     ...mapActions("portfolio", ["sellStock","loadFromDb"]),
-  },
-  mounted(){
-      this.loadFromDb()
-  }
+  } 
 };
 </script>

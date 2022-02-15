@@ -1,13 +1,13 @@
 <template>
   <div >
     {{ testLocal }}
-    <v-btn @click="startDb">startDb</v-btn>
+    <v-btn @click="reverseStocksList">reverse</v-btn>
     <StockList :stocks="stocksAvailable" @buyOrSellButtonClicked="buyStock" />
   </div>
 </template>
 <script>
 import StockList from "../templates/StockList.vue";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 export default {
   components: { StockList },
   computed: mapState({
@@ -19,7 +19,8 @@ export default {
     },
   }),
   methods: {
-    ...mapActions("stocks", ["buyStock","startDb"]),
+    ...mapActions("stocks", ["buyStock"]),
+    ...mapMutations("stocks",["reverseStocksList"])
   },
 };
 </script>
