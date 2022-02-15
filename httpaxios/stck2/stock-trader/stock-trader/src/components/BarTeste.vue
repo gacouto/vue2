@@ -5,6 +5,7 @@
       Você pode salvar 
       <slot v-bind:propReversa="alertType"></slot>
        e carregar dados
+       blabla
     </v-alert>
 </template>
 <script>
