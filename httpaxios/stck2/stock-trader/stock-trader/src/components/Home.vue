@@ -6,7 +6,7 @@
     </v-alert>
     <BarTeste>
       <template slot-scope="props">
-        <strong>beibe {{ props.propReversa }} beibe</strong>
+        <strong >beibe {{ props }} beibe</strong>
       </template>
     </BarTeste>
     <v-alert :value="true" color="success" icon="check_circle" outline>
